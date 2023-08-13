@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:10:32 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/11 21:19:40 by kduru            ###   ########.fr       */
+/*   Updated: 2023/08/13 19:18:16 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,20 @@ char	*ft_strdup(const char *string)
 	return (arr);
 }
 
-void	ft_lstadd_back(t_token **token, char *string)
+void	ft_lstadd_back(t_token **token, t_token *to_add)
 {
 	t_token	*tmp;
 
+	tmp = *token;
 	if (*token == NULL)
 	{
-		*token = (t_token *)malloc(sizeof(t_token));
-		(*token)->str = ft_strdup(string);
-		(*token)->next = NULL;
-		(*token)->prev = NULL;
+		*token = to_add; 
 		return ;
 	}
-	tmp = *token;
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = (t_token *)malloc(sizeof(t_token));
-	tmp->next->str = ft_strdup(string);
+	tmp->next = to_add;
 	tmp->next->prev = tmp;
-	tmp->next->next = NULL;
 	return ;
 }
 

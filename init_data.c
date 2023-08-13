@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 19:57:35 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/11 21:17:31 by kduru            ###   ########.fr       */
+/*   Updated: 2023/08/13 19:20:04 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,16 @@ void	init_data(t_shell *ms)
 		ms->history[i++] = (char *)malloc(sizeof(char) * 100);
 	ms->input_count = 0;
 	ms->token = NULL;
+}
+
+t_token*	token_constructor(char *str, enum e_ttype type)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	token->type = type;
+	token->str = str;
+	token->prev = NULL;
+	token->next = NULL;
+	return (token);
 }

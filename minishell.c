@@ -24,7 +24,15 @@ int main()
 		input = readline("$ ");
 		write(1, "\033[0m", 4);
 		ms->input = ft_strdup(input);
-		lex_command(ms);	
+		lex_command(ms);
+		
+		t_token *iter;
+		iter = ms->token;
+		while (iter)
+		{
+			printf("%s\n", iter->str);
+			iter = iter->next;
+		}
     }
 
     return (0);

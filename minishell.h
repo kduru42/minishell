@@ -74,10 +74,14 @@ typedef struct s_shell
     int     input_count;
 }   t_shell;
 
-char	*ft_strdup(const char *string);
-void	init_data(t_shell *ms);
-void	ft_lstadd_back(t_token **token, char *string);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-void	lex_command(t_shell *ms);
+t_token*	token_constructor(char *str, enum e_ttype type);
+char		*ft_strdup(const char *string);
+void		init_data(t_shell *ms);
+void		ft_lstadd_back(t_token **token, t_token *to_add);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+void		lex_command(t_shell *ms);
+void		parse_operator(t_shell *ms, int pos, int start);
+void		parse_string(t_shell *ms, int pos, int start);
+void		parse_operator(t_shell *ms, int pos, int start);
 
 #endif
