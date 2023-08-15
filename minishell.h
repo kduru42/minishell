@@ -66,14 +66,27 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_process
+{
+	pid_t				pid;
+	int					fd[2];	
+	int					heredoc_fd[2];
+	char				**execute;
+	char				**redirects;
+	struct s_process	*prev;
+	struct s_process	*next;
+}	t_process;
+
 typedef struct s_shell
 {
-	t_token	*token;
-	char	*input;
-    char    **history;
-    int     input_count;
+	t_process	*process;
+	t_token		*token;
+	char		*input;
+    char    	**history;
+    int     	input_count;
 }   t_shell;
 
+t_process	*process_constructor(void);
 t_token*	token_constructor(char *str, enum e_ttype type);
 char		*ft_strdup(const char *string);
 void		init_data(t_shell *ms);
@@ -83,5 +96,7 @@ void		lex_command(t_shell *ms);
 void		parse_operator(t_shell *ms, int pos, int start);
 void		parse_string(t_shell *ms, int pos, int start);
 void		parse_operator(t_shell *ms, int pos, int start);
+void		ft_process_addback(t_process **processes, t_process *to_add);
+int			lexer(t_shell *ms);
 
 #endif
