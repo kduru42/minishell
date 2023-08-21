@@ -27,10 +27,11 @@ int main()
 		lex_command(ms);
 		lexer(ms);
 		
+
 		t_process *iter;
 		int i = 0;
 		iter = ms->process;
-		printf("%s\n%s\n%s\n", iter->execute[0], iter->execute[1], iter->redirects[0]);
+		printf("%s\n%s\n%s\n%s\n", iter->execute[0], iter->execute[1], iter->redirects[0], iter->redirects[1]);
 		iter = iter->next;
     }
 

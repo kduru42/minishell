@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:00:22 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/13 20:03:45 by kduru            ###   ########.fr       */
+/*   Updated: 2023/08/21 19:56:20 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,3 +53,4 @@ void	parse_operator(t_shell *ms, int pos, int start)
 		ft_lstadd_back(&ms->token, token_constructor(str, PIPE));
 	return ;
 }
+

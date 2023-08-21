@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 20:03:53 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/15 22:26:13 by kduru            ###   ########.fr       */
+/*   Updated: 2023/08/21 20:16:22 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ int	get_processes(t_token **token, t_process *process)
 	if ((*token)->type == STRING)
 		process->execute = push_to_array(process->execute, (*token)->str);
 	else
+	{
 		process->redirects = push_to_array(process->redirects, (*token)->str);
+		*token = (*token)->next;
+		process->redirects = push_to_array(process->redirects, (*token)->str);
+	}
 	return (TRUE);
 }
 

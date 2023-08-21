@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:06:10 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/13 20:02:20 by kduru            ###   ########.fr       */
+/*   Updated: 2023/08/21 20:15:39 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	skip_whitespace(t_shell *ms)
 
 int	check_operator(char to_control)
 {
-	if (to_control == '<' || to_control == '>' || to_control == '|')
+	if (to_control == '<' || to_control == '>' || to_control == '|' || to_control == '-')
 		return (1);
 	else
 		return (0);
@@ -52,6 +52,14 @@ void	lex_command(t_shell *ms)
 			i++;
 		parse_string(ms, i, start);
 		start = i;
+		if (ms->input[i] == '-')
+		{
+			while (ms->input[i] != ' ')
+				i++;
+			parse_string(ms, i, start);
+			i++;
+			start = i;
+		}
 		skip_operators(ms->input, &i);
 		parse_operator(ms, i, start);
 		if (!ms->input[i])
