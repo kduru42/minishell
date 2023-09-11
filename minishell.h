@@ -82,6 +82,7 @@ typedef struct s_shell
 	t_process	*process;
 	t_token		*token;
 	char		*input;
+	char		**env;
     char    	**history;
     int     	input_count;
 }   t_shell;
@@ -89,7 +90,7 @@ typedef struct s_shell
 t_process	*process_constructor(void);
 t_token*	token_constructor(char *str, enum e_ttype type);
 char		*ft_strdup(const char *string);
-void		init_data(t_shell *ms);
+void		init_data(t_shell *ms, char **env);
 void		ft_lstadd_back(t_token **token, t_token *to_add);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		lex_command(t_shell *ms);
@@ -97,6 +98,7 @@ void		parse_operator(t_shell *ms, int pos, int start);
 void		parse_string(t_shell *ms, int pos, int start);
 void		parse_operator(t_shell *ms, int pos, int start);
 void		ft_process_addback(t_process **processes, t_process *to_add);
+void		set_env(t_shell *ms, char **env);
 int			lexer(t_shell *ms);
 
 #endif

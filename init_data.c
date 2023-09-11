@@ -6,13 +6,13 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 19:57:35 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/15 20:19:47 by kduru            ###   ########.fr       */
+/*   Updated: 2023/09/11 19:34:51 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_data(t_shell *ms)
+void	init_data(t_shell *ms, char **env)
 {
 	int	i;
 
@@ -23,6 +23,7 @@ void	init_data(t_shell *ms)
 	ms->input_count = 0;
 	ms->token = NULL;
 	ms->process = NULL;
+	set_env(ms, env);
 }
 
 t_token	*token_constructor(char *str, enum e_ttype type)

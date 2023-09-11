@@ -12,13 +12,13 @@
 
 #include "minishell.h"
 
-int main()
+int main(int ac, char **arg, char **env)
 {
 	t_shell	*ms;
     char    *input;
 
 	ms = (t_shell *)malloc(sizeof(t_shell));
-	init_data(ms);
+	init_data(ms, env);
     while (1) {
         write(1, "\033[32m", 5);
 		input = readline("$ ");
