@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:06:10 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/21 20:15:39 by kduru            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:02:13 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	lex_command(t_shell *ms)
 	while (ms->input[i])
 	{
 		start = i;
-		while (!check_operator(ms->input[i]) && ms->input[i])
+		while ((!check_operator(ms->input[i]) && ms->input[i] != ' ') && ms->input[i])
 			i++;
 		parse_string(ms, i, start);
 		start = i;

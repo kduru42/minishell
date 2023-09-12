@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:24:23 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/12 17:48:01 by kduru            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:09:12 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	quote_count(char *str, char type)
 	i = 0;
 	while (str[i])
 	{
-		if (str[count] == type)
+		if (str[i] == type)
 			count++;
 		i++;
 	}
@@ -43,9 +43,15 @@ char	*clear_quotes(char *str, int *pos, char type)
 	result = (char *)malloc(sizeof(char) * (ft_strlen(new_str) - quote_count(new_str, type)) + 1);
 	j = 0;
 	i = 0;
-	while (new_str[i++])
+	while (new_str[i])
+	{
 		if (new_str[i] != type)
-			result[j++] = new_str[i];
+		{
+			result[j] = new_str[i];
+			j++;
+		}
+		i++;
+	}
 	result[j] = '\0';
 	return (result);
 }
@@ -79,5 +85,6 @@ void handle_quotes(t_shell *ms, char *str)
 		push_new_str(&last, new_str);
 	}
 	free(str);
+	free(ms->input);
 	ms->input = ft_strdup(last);
 }

@@ -25,7 +25,7 @@ int main(int ac, char **arg, char **env)
 		write(1, "\033[0m", 4);
 		ms->input = ft_strdup(input);
 		handle_quotes(ms, input);
-		lex_command(ms);
+ 		lex_command(ms);
 		lexer(ms);
 		
 
