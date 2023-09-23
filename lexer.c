@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:06:10 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/12 18:02:13 by kduru            ###   ########.fr       */
+/*   Updated: 2023/09/23 20:25:07 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	skip_whitespace(t_shell *ms)
 
 int	check_operator(char to_control)
 {
-	if (to_control == '<' || to_control == '>' || to_control == '|' || to_control == '-')
+	if (to_control == '<' || to_control == '>' || to_control == '|')
 		return (1);
 	else
 		return (0);
@@ -37,6 +37,7 @@ void	skip_operators(char *str, int *pos)
 		(*pos)++;
 	return ;
 }
+
 
 void	lex_command(t_shell *ms)
 {
@@ -50,18 +51,17 @@ void	lex_command(t_shell *ms)
 		start = i;
 		while ((!check_operator(ms->input[i]) && ms->input[i] != ' ') && ms->input[i])
 			i++;
-		parse_string(ms, i, start);
-		start = i;
-		if (ms->input[i] == '-')
-		{
-			while (ms->input[i] != ' ')
-				i++;
-			parse_string(ms, i, start);
-			i++;
+		if (check_operator(ms->input[i]))
+		{	
+			skip_operators(ms->input, &i);
+			parse_operator(ms, i, start);
 			start = i;
 		}
-		skip_operators(ms->input, &i);
-		parse_operator(ms, i, start);
+		else
+		{
+			parse_string(ms, i, start);
+			start = i;		
+		}
 		if (!ms->input[i])
 			return ;
 		i++;

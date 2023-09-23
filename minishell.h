@@ -103,5 +103,6 @@ void		set_env(t_shell *ms, char **env);
 int			lexer(t_shell *ms);
 void		push_new_str(char **new_str, char *str);
 void		handle_quotes(t_shell *ms, char *str);
+int			ft_isprint(int i);
 
 #endif

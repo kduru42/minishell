@@ -23,7 +23,6 @@ int main(int ac, char **arg, char **env)
         write(1, "\033[32m", 5);
 		input = readline("$ ");
 		write(1, "\033[0m", 4);
-		ms->input = ft_strdup(input);
 		handle_quotes(ms, input);
  		lex_command(ms);
 		lexer(ms);
@@ -32,6 +31,7 @@ int main(int ac, char **arg, char **env)
 		t_process *iter;
 		iter = ms->process;
 		printf("%s\n%s\n", iter->execute[0], iter->execute[1]);
+		printf("%s\n%s\n", iter->redirects[0], iter->redirects[1]);
     }
 
     return (0);

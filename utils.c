@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:10:32 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/13 19:18:16 by kduru            ###   ########.fr       */
+/*   Updated: 2023/09/23 19:54:58 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	subs[i] = 0;
 	return (subs);
+}
+
+
+int	ft_isprint(int i)
+{
+	if (i >= 32 && i <= 126)
+		return (1);
+	return (0);
 }
