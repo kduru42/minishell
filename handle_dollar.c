@@ -6,21 +6,95 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:35:42 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/25 16:40:49 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/01 01:31:46 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "minishell.h"
+#include "minishell.h"
 
-int	check_dollar (char *str)
+int	valid_op(char c)
 {
-	int	i;
-	int flag;
+	return ((c >= 'a' && c <= 'z') || \
+			(c >= 'A' && c <= 'Z') || \
+			(c >= '0' && c <= '9') || \
+			(c == '_') || (c == '?'));
+}
+
+int	check_dollar(char *str)
+{
+	int		i;
+	int		single_quote;
+	int		double_quote;
 
 	i = 0;
-	flag = 0;
-	while (str[i])
+	single_quote = TRUE;
+	double_quote = FALSE;
+	while (str[i] && str[i] != DOLLAR_OP)
 	{
-		while (str[i])
+		if (str[i] == SINGLE_QUOTE)
+			single_quote = double_quote;
+		if (str[i] == DOUBLE_QUOTE)
+			double_quote = !double_quote;
+		i++;
 	}
-} */
+	if (!valid_op(*(ft_strchr(str, DOLLAR_OP) + 1)))
+		return (FALSE);
+	return (single_quote);
+}
+
+static char	*get_str(char *str, int	*pos, int type)
+{
+	int		first;
+	char	*data;
+
+	first = *pos;
+	while (str[*pos] != type)
+		(*pos)++;
+	data = ft_substr(str, first, *pos - first);
+	(*pos)++;
+	return (data);
+}
+
+char	*parse_dollar_op(t_shell *ms, char *str)
+{
+	int		i;
+	int		first;
+	char	*env;
+	char	*result;
+	char	*data;
+
+	i = 0;
+	result = NULL;
+	data = get_str(str, &i, DOLLAR_OP);
+	push_new_str(&result, data);
+	first = i;
+	if (str[i] == '?' && ++i)
+		push_new_str(&result, ft_itoa(errno));
+	else
+	{
+		while (valid_op(str[i]))
+			(i)++;
+		data = ft_substr(str, first, i - first);
+		env = get_env(ms, data);
+		push_new_str(&result, env);
+		free(data);
+	}
+	data = get_str(str, &i, 0);
+	push_new_str(&result, data);
+	return (result);
+}
+
+char	*dollar(t_shell *ms, char *str)
+{
+	char	*tmp;
+	char	*new_str;
+
+	new_str = ft_strdup(str);
+	while (ft_strchr(new_str, DOLLAR_OP) && check_dollar(new_str))
+	{
+		tmp = new_str;
+		new_str = parse_dollar_op(ms, new_str);
+		free(tmp);
+	}
+	return (new_str);
+}

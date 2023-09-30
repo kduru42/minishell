@@ -6,11 +6,19 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:31:14 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/30 23:03:04 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/01 01:35:22 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*split_env(char *str)
+{
+	while (*str != '=')
+		str++;
+	str++;
+	return (ft_strdup(str));
+}
 
 void	set_env(t_shell *ms, char **env)
 {
@@ -25,6 +33,28 @@ void	set_env(t_shell *ms, char **env)
 	while (++i < size)
 		ms->env[i] = ft_strdup(env[i]);
 	return ;
+}
+
+char	*get_env(t_shell *ms, char *str)
+{
+	size_t	len;
+	char	**env;
+	char	*new_str;
+
+	env = ms->env;
+	new_str = ft_strjoin(str, "=");
+	len = ft_strlen(new_str);
+	while (*env)
+	{
+		if (!ft_strncmp(*env, new_str, len))
+		{
+			free(new_str);
+			return (split_env(*env));
+		}
+		env++;
+	}
+	free(new_str);
+	return (malloc(sizeof(char *) * 1));
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)

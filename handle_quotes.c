@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:24:23 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/23 20:27:45 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/01 01:32:09 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void handle_quotes(t_shell *ms, char *str)
 	int		i;
 
 	i = 0;
+	str = dollar(ms, str);
 	last = NULL;
 	while (str[i])
 	{

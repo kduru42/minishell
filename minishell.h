@@ -106,5 +106,11 @@ int				ft_isprint(int i);
 void			parse_string(t_shell *ms, int pos, int start);
 void			parse_operator(t_shell *ms, int pos, int start);
 void			free_data(t_shell *ms);
+char			*ft_strchr(const char *s, int i);
+char			*dollar(t_shell *ms, char *str);
+char			*get_env(t_shell *ms, char *str);
+char			*ft_itoa(int n);
+char			*ft_strjoin(char const *s1, char const *s2);
+int				ft_strcmp(const char *s1, const char *s2);
 
 #endif
