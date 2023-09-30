@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_data.c                                        :+:      :+:    :+:   */
+/*   handle_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 20:24:36 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/30 22:51:22 by kduru            ###   ########.fr       */
+/*   Created: 2023/09/25 16:35:42 by kduru             #+#    #+#             */
+/*   Updated: 2023/09/25 16:40:49 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+/* #include "minishell.h"
 
-void	free_data(t_shell *ms)
+int	check_dollar (char *str)
 {
-	free(ms->history);
-	free(ms->input);
-	free(ms->process);
-	free(ms->token);
-	free(ms);
-}
+	int	i;
+	int flag;
+
+	i = 0;
+	flag = 0;
+	while (str[i])
+	{
+		while (str[i])
+	}
+} */

@@ -6,20 +6,11 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:00:22 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/21 19:56:20 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/01 00:06:02 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	parse_string(t_shell *ms, int pos, int start)
-{
-	char	*str;
-
-	str = ft_substr(ms->input, start, pos - start);
-	ft_lstadd_back(&ms->token, token_constructor(str, STRING));
-	return ;
-}
 
 enum e_ttype which_operator(char *str)
 {
@@ -38,19 +29,24 @@ enum e_ttype which_operator(char *str)
 	return (0);
 }
 
-void	parse_operator(t_shell *ms, int pos, int start)
+
+void	tokenizer(t_shell *ms, char *str)
 {
-	char	*str;
-	
-	str = ft_substr(ms->input, start, pos - start);
-	if (which_operator(str) == HERE_DOC)
-		ft_lstadd_back(&ms->token, token_constructor(str, HERE_DOC));
-	else if (which_operator(str) == RED_APPEND)
-		ft_lstadd_back(&ms->token, token_constructor(str, RED_APPEND));
-	if (which_operator(str) == RED_INPUT)
-		ft_lstadd_back(&ms->token, token_constructor(str, RED_INPUT));
-	if (which_operator(str) == PIPE)
-		ft_lstadd_back(&ms->token, token_constructor(str, PIPE));
+	while (*str)
+	{
+		if (which_operator(str) == HERE_DOC)
+			str += ft_lstadd_back(&ms->token, token_constructor(ft_strdup("<<"), HERE_DOC), 2);
+		else if (which_operator(str) == RED_APPEND)
+			str += ft_lstadd_back(&ms->token, token_constructor(ft_strdup(">>"), RED_APPEND), 2);
+		else if (which_operator(str) == RED_INPUT)
+			str += ft_lstadd_back(&ms->token, token_constructor(ft_strdup("<"), RED_INPUT), 1);
+		else if (which_operator(str) == RED_OUTPUT)
+			str += ft_lstadd_back(&ms->token, token_constructor(ft_strdup(">"), RED_OUTPUT), 1);
+		else if (which_operator(str) == PIPE)
+			str += ft_lstadd_back(&ms->token, token_constructor(ft_strdup("|"), PIPE), 1);
+		else
+			lex_command(ms, &str);
+	}
 	return ;
 }
 

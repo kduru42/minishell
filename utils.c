@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:10:32 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/23 19:54:58 by kduru            ###   ########.fr       */
+/*   Updated: 2023/09/30 23:38:19 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ char	*ft_strdup(const char *string)
 	return (arr);
 }
 
-void	ft_lstadd_back(t_token **token, t_token *to_add)
+int	ft_lstadd_back(t_token **token, t_token *to_add, int plus)
 {
 	t_token	*tmp;
 
 	tmp = *token;
 	if (*token == NULL)
+		*token = to_add;
+	else
 	{
-		*token = to_add; 
-		return ;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = to_add;
+		tmp->next->prev = tmp;		
 	}
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = to_add;
-	tmp->next->prev = tmp;
-	return ;
+	return (plus);
 }
 
 size_t	ft_strlen(const char *str)

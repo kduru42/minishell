@@ -6,68 +6,48 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:06:10 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/23 20:25:07 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/01 00:06:48 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	skip_whitespace(t_shell *ms)
+int	is_whitespace(char c)
 {
-	char	*temp;
-
-	temp = ms->input;
-	while (*temp == ' ')
-		temp++;
-	ms->input = temp;
-	return ;
+	return (c == ' ' || c == '\t');
 }
 
-int	check_operator(char to_control)
+void	skip_whitespace(char **str, char **head)
 {
-	if (to_control == '<' || to_control == '>' || to_control == '|')
-		return (1);
-	else
-		return (0);
+	while (**str && is_whitespace(**str))
+		(*str)++;
+	*head = *str;
 }
 
-void	skip_operators(char *str, int *pos)
+void	checker(char **str)
 {
-	while (str[*pos] == '<' || str[*pos] == '>' || str[*pos] == '|')
-		(*pos)++;
-	return ;
-}
-
-
-void	lex_command(t_shell *ms)
-{
-	int		i;
-	int		start;
-
-	i = 0;
-	skip_whitespace(ms);
-	while (ms->input[i])
+	while (**str)
 	{
-		start = i;
-		while ((!check_operator(ms->input[i]) && ms->input[i] != ' ') && ms->input[i])
-			i++;
-		if (check_operator(ms->input[i]))
-		{	
-			skip_operators(ms->input, &i);
-			parse_operator(ms, i, start);
-			start = i;
-		}
-		else
-		{
-			parse_string(ms, i, start);
-			start = i;		
-		}
-		if (!ms->input[i])
-			return ;
-		i++;
+		if (is_whitespace(**str))
+			break ;
+		if (which_operator(*str))
+			break ;
+		(*str)++;
 	}
-	return ;
 }
 
+void	lex_command(t_shell *ms, char **str)
+{
+	int		len;
+	char	*head;
+	char	*token_str;
 
-
+	skip_whitespace(str, &head);
+	checker(str);
+	len = *str - head;
+	if (len > 0)
+	{
+		token_str = ft_substr(head, 0, len);
+		ft_lstadd_back(&ms->token, token_constructor(token_str, STRING), 0);
+	}	
+}

@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 20:03:53 by kduru             #+#    #+#             */
-/*   Updated: 2023/08/21 20:16:22 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/01 00:12:58 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ char**	push_to_array(char **arr, char *new_arr)
 
 	i = 0;
 	len = 0;
-	while (arr[len])
+	while (arr && arr[len])
 		len++;
-	tmp_arr = (char **)malloc(sizeof(char *) * (len + 1));
+	tmp_arr = (char **)malloc(sizeof(char *) * (len + 2));
 	while (i < len)
 	{
-		tmp_arr[i] = ft_strdup(arr[i]);
+		tmp_arr[i] = arr[i];
 		i++;
 	}
-	tmp_arr[len] = ft_strdup(new_arr);
+	tmp_arr[len] = new_arr;
 	free(arr);
 	return (tmp_arr);
 }
@@ -60,8 +60,7 @@ int	lexer(t_shell *ms)
 			ft_process_addback(&ms->process, process);
 		}
 		get_processes(&token, process);
-		if (token)
-			token = token->next;
+		token = token->next;
 	}
 	return (TRUE);
 }

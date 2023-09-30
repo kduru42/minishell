@@ -6,7 +6,7 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:31:14 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/23 19:34:37 by kduru            ###   ########.fr       */
+/*   Updated: 2023/09/30 23:03:04 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	set_env(t_shell *ms, char **env)
 	int	i;
 
 	size = 0;
-	i = 0;
+	i = -1;
 	while (env[size])
 		size++;
-	while (i++ < size)
+	ms->env = (char **)malloc(sizeof(char *) * (size + 1));
+	while (++i < size)
 		ms->env[i] = ft_strdup(env[i]);
 	return ;
 }
@@ -66,5 +67,3 @@ void	push_new_str(char **new_str, char *str)
 	free(temp);
 	free(str);
 }
-
-
