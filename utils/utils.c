@@ -6,11 +6,11 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:10:32 by kduru             #+#    #+#             */
-/*   Updated: 2023/10/01 01:33:31 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/03 21:08:07 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*ft_strdup(const char *string)
 {
@@ -183,6 +183,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (dest - s1_len);
 }
 
+int	ft_strncmp(const char *s1, char *s2, size_t n)
+{
+	while (*s1 != '\0' && *s1 == *s2 && n > 0)
+	{
+		s1++;
+		s2++;
+		n--;
+	}
+	if (n == 0)
+		return (0);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}
+
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	if (!s1 || !s2)
@@ -195,4 +208,136 @@ int	ft_strcmp(const char *s1, const char *s2)
 		s2++;
 	}
 	return (TRUE);
+}
+
+int	is_parent(t_shell *ms)
+{
+	return (ms->parent_pid == getpid());
+}
+
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int	neg;
+	int	num;
+
+	i = 0;
+	neg = 1;
+	num = 0;
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v' \
+	|| str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			neg *= -1;
+		i++;
+	}
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		num = num * 10 + (str[i] - 48);
+		i++;
+	}
+	return (num * neg);
+}
+
+void	set_paths(t_shell *ms)
+{
+	char	*path;
+
+	if (ms->paths)
+		free_array(ms->paths);
+	path = get_env(ms, "PATH");
+	if (!(*path))
+		ms->paths = NULL;
+	else
+		ms->paths = ft_split(path, ':');
+	free(path);
+}
+
+static int	ft_word_count(char const *str, char c)
+{
+	int	words;
+	int	i;
+
+	words = 0;
+	i = 0;
+	if (!str || !ft_strlen(str))
+		return (0);
+	if (str[i] != c)
+	{
+		i++;
+		words++;
+	}
+	while (str[i] && ft_strlen(str) > 0)
+	{
+		if (str[i] == c && str[i + 1] != c && str[i + 1])
+		{
+			words++;
+		}
+		i++;
+	}
+	return (words);
+}
+
+char	*ft_split_word(char const *str, char c)
+{
+	char			*word;
+	unsigned int	i;
+
+	i = 0;
+	while (str[i] != c && str[i])
+		i++;
+	word = (char *)malloc(i + 1);
+	i = 0;
+	while (str[i] != c && str[i])
+	{
+		word[i] = str[i];
+		i++;
+	}
+	word[i] = '\0';
+	return (word);
+}
+
+char	**free_list(char **result)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (result[i])
+	{
+		free(result[i]);
+		i++;
+	}
+	free(result);
+	return (0);
+}
+
+char	**ft_split(char const *str, char c)
+{
+	char	**result;
+	int		index;
+
+	if (!str)
+		return (NULL);
+	result = (char **)malloc(sizeof(char *) * (ft_word_count(str, c) + 1));
+	if (!result)
+		return (NULL);
+	index = 0;
+	while (*str)
+	{
+		if (*str != c)
+		{
+			result[index] = ft_split_word(str, c);
+			if (!(result[index]))
+				return (free_list(result));
+			while (*str != c && *str)
+				str++;
+			index++;
+		}
+		else
+			str++;
+	}
+	result[index] = NULL;
+	return (result);
 }

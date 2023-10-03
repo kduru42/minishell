@@ -6,11 +6,11 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:06:10 by kduru             #+#    #+#             */
-/*   Updated: 2023/10/01 00:06:48 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:14:56 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	is_whitespace(char c)
 {

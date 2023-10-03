@@ -26,11 +26,12 @@ int main(int ac, char **arg, char **env)
 		handle_quotes(ms, input);
  		tokenizer(ms, ms->input);
 		lexer(ms);
+		run_builtin(ms, ms->process->execute);
 		
-		t_process *iter;
+/* 		t_process *iter;
 		iter = ms->process;
 		printf("%s\n%s\n", iter->execute[0], iter->execute[1]);
-		printf("%s\n%s\n", iter->redirects[0], iter->redirects[1]);  
+		printf("%s\n%s\n", iter->redirects[0], iter->redirects[1]);  */ 
 	}
 	free_data(ms);
     return (0);

@@ -6,11 +6,11 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:35:42 by kduru             #+#    #+#             */
-/*   Updated: 2023/10/01 01:31:46 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:14:45 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	valid_op(char c)
 {

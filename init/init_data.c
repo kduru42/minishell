@@ -6,11 +6,11 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 19:57:35 by kduru             #+#    #+#             */
-/*   Updated: 2023/09/30 22:54:52 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:14:42 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_data(t_shell *ms, char **env)
 {

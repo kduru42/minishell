@@ -6,11 +6,11 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:00:22 by kduru             #+#    #+#             */
-/*   Updated: 2023/10/01 00:06:02 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:15:03 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 enum e_ttype which_operator(char *str)
 {

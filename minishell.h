@@ -79,11 +79,13 @@ typedef struct s_process
 
 typedef struct s_shell
 {
+	int			parent_pid;
 	t_process	*process;
 	t_token		*token;
 	char		*input;
 	char		**env;
     char    	**history;
+	char		**paths;
     int     	input_count;
 }   t_shell;
 
@@ -111,6 +113,25 @@ char			*dollar(t_shell *ms, char *str);
 char			*get_env(t_shell *ms, char *str);
 char			*ft_itoa(int n);
 char			*ft_strjoin(char const *s1, char const *s2);
+int				ft_strncmp(const char *s1, char *s2, size_t n);
 int				ft_strcmp(const char *s1, const char *s2);
+void			token_err(int type);
+void			free_token(t_shell *ms);
+void			builtin_cd(t_shell *ms, char **input);
+void			builtin_env(t_shell *ms);
+void			builtin_echo(t_shell *ms, char **input);
+void			builtin_exit(char **input);
+void			builtin_export(t_shell *ms, char **input);
+void			builtin_pwd(t_shell *ms);
+void			builtin_unset(t_shell *ms, char **input);
+void			run_builtin(t_shell *ms, char **execute);
+int				is_parent(t_shell *ms);
+int				ft_atoi(const char *str);
+int				is_whitespace(char c);
+void			free_array(char **arr);
+char			**ft_split(char const *str, char c);
+void			set_paths(t_shell *ms);
+int				env_len(t_shell *ms);
+void			free_process(t_shell *ms);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 20:03:53 by kduru             #+#    #+#             */
-/*   Updated: 2023/10/01 00:12:58 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/03 21:35:37 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char**	push_to_array(char **arr, char *new_arr)
 {
@@ -33,7 +33,7 @@ char**	push_to_array(char **arr, char *new_arr)
 	return (tmp_arr);
 }
 
-int	get_processes(t_token **token, t_process *process)
+int	get_processes(t_shell *ms, t_token **token, t_process *process)
 {
 	if ((*token)->type == STRING)
 		process->execute = push_to_array(process->execute, (*token)->str);
@@ -41,6 +41,15 @@ int	get_processes(t_token **token, t_process *process)
 	{
 		process->redirects = push_to_array(process->redirects, (*token)->str);
 		*token = (*token)->next;
+/* 		if (!(*token) || (*token)->type != STRING)
+		{
+			if (!(*token))
+				token_err(0);
+			else
+				token_err((*token)->type);
+			free_token(ms);
+			return (FALSE);
+		} */
 		process->redirects = push_to_array(process->redirects, (*token)->str);
 	}
 	return (TRUE);
@@ -59,7 +68,7 @@ int	lexer(t_shell *ms)
 			process = process_constructor();
 			ft_process_addback(&ms->process, process);
 		}
-		get_processes(&token, process);
+		get_processes(ms, &token, process);
 		token = token->next;
 	}
 	return (TRUE);

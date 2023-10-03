@@ -6,11 +6,11 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:24:23 by kduru             #+#    #+#             */
-/*   Updated: 2023/10/01 01:32:09 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:14:53 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	quote_count(char *str, char type)
 {

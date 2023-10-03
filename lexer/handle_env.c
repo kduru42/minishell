@@ -6,11 +6,11 @@
 /*   By: kduru <kduru@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:31:14 by kduru             #+#    #+#             */
-/*   Updated: 2023/10/01 01:35:22 by kduru            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:21:31 by kduru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*split_env(char *str)
 {
@@ -55,31 +55,6 @@ char	*get_env(t_shell *ms, char *str)
 	}
 	free(new_str);
 	return (malloc(sizeof(char *) * 1));
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	int		i;
-	int		j;
-	char	*str;
-
-	i = 0;
-	j = 0;
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (str == NULL)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	while (s2[j] != '\0')
-	{
-		str[i + j] = s2[j];
-		j++;
-	}
-	str[i + j] = '\0';
-	return (str);
 }
 
 void	push_new_str(char **new_str, char *str)
